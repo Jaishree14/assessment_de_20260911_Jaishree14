@@ -1,0 +1,16 @@
+cities:
+  - name: new_delhi
+    latitude: 28.6139
+    longitude: 77.2090
+  - name: bangalore
+    latitude: 12.9716
+    longitude: 77.5946
+  - name: hyderabad
+    latitude: 17.3850
+    longitude: 78.4867
+  - name: ilmenau
+    latitude: 50.6851
+    longitude: 10.9310
+  - name: paris
+    latitude: 48.8566
+    longitude: 2.3522
