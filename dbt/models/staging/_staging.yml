@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: weather_daily
+        description: Raw daily weather pulled from the Open-Meteo archive API, one row per city per date, unmodified from the API response.
+        columns:
+          - name: city
+            description: City name, matches config/cities.yml.
+          - name: logical_date
+            description: The Airflow logical date this row was loaded for (may differ from `date` if the API returns a range).
+          - name: date
+            description: The calendar date this weather reading applies to.
+
+models:
+  - name: stg_weather
+    description: Cleaned, typed, one-row-per-city-per-day staging model over the raw weather source.
+    columns:
+      - name: city
+        description: City name.
+        data_tests: [not_null]
+      - name: weather_date
+        description: Calendar date of the reading.
+        data_tests: [not_null]
+      - name: city_date_key
+        description: Surrogate key (city + date) enforcing one row per city per day.
+        data_tests: [not_null, unique]
+      - name: temp_max_c
+        description: Max daily temperature in Celsius.
+      - name: temp_min_c
+        description: Min daily temperature in Celsius.
+      - name: precipitation_mm
+        description: Total daily precipitation in millimeters.

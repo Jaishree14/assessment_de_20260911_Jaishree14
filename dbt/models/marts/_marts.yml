@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: fct_city_daily
+    description: One row per city per day — daily temperature range and precipitation, ready for a business user to query directly.
+    columns:
+      - name: city
+        tests: [not_null]
+      - name: weather_date
+        tests: [not_null]
+      - name: temp_max_c
+        description: Max daily temperature in Celsius.
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: -90
+              max_value: 60
+              config:
+                severity: warn
+      - name: temp_avg_c
+        description: Simple average of max and min temperature for the day.
+      - name: precipitation_mm
+        tests:
+          - not_null
